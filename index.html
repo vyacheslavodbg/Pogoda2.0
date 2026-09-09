@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07080b">
+<meta name="description" content="ATLAS — премиальный мониторинг погоды, воздуха, геомагнитной и солнечной активности, Луны и землетрясений для Варны и Одессы.">
+<title>ATLAS — Earth Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+<main class="app-shell">
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">A</span><div><div class="brand-name">ATLAS</div><div class="brand-sub">EARTH INTELLIGENCE</div></div></div>
+  <div class="top-status"><span class="live-dot"></span><span>LIVE DATA</span><span id="updated">обновление...</span></div>
+</header>
+<section class="hero">
+  <div><div class="eyebrow">ATMOSPHERIC & SPACE CONDITIONS</div><h1>Среда вокруг вас,<br><em>в одном экране.</em></h1><p>Погода, воздух, Луна, геомагнитная и солнечная активность, осадки и землетрясения.</p></div>
+  <div class="location-switch" role="tablist"><button class="location active" data-city="varna">Варна <span>BG</span></button><button class="location" data-city="odessa">Одесса <span>UA</span></button></div>
+</section>
+<section class="grid main-grid">
+<article class="card weather-card span-2">
+ <div class="card-head"><div><span class="kicker">ПОГОДА</span><h2 id="cityName">Варна</h2></div><button class="pill info-btn" data-info="weather">подробнее</button></div>
+ <div class="weather-main"><div class="temp info-value" data-info="temperature" id="temp">--°</div><div class="weather-meta"><button class="metric-btn" data-info="condition"><span id="weatherIcon" class="weather-icon">☀</span><span id="weatherDesc">—</span></button><button class="metric-btn" data-info="feels">Ощущается <strong id="feels">—</strong></button><button class="metric-btn" data-info="humidity">Влажность <strong id="humidity">—</strong></button></div></div>
+ <div class="mini-stats">
+  <button data-info="wind"><span>ВЕТЕР</span><strong id="wind">—</strong></button>
+  <button data-info="pressure"><span>ДАВЛЕНИЕ</span><strong id="pressure">—</strong></button>
+  <button data-info="visibility"><span>ВИДИМОСТЬ</span><strong id="visibility">—</strong></button>
+  <button data-info="uv"><span>UV</span><strong id="uv">—</strong></button>
+ </div>
+ <div class="daily-strip" id="forecast"></div>
+ <div class="hourly-wrap"><div class="section-title">ПОЧАСОВОЙ ПРОГНОЗ <span>24 часа</span></div><div class="hourly" id="hourly"></div></div>
+</article>
+<article class="card geomag-card">
+ <div class="card-head"><div><span class="kicker">SPACE WEATHER</span><h2>Геомагнитное поле</h2></div><button class="status-orb info-btn" id="geomagOrb" data-info="kp"></button></div>
+ <button class="big-metric" data-info="kp"><span class="kp-value" id="kp">—</span><span><b id="kpLabel">Загрузка</b><small>Planetary K-index</small></span></button>
+ <div class="kp-meter"><div class="kp-fill" id="kpFill"></div></div><div class="meter-labels"><span>QUIET</span><span>STORM</span><span>SEVERE</span></div>
+ <button class="detail-line" data-info="kpmax"><span>Макс. за 24 ч</span><strong id="kpMax">—</strong></button><button class="detail-line" data-info="kpforecast"><span>Прогноз</span><strong id="kpForecast">—</strong></button>
+</article>
+<article class="card air-card">
+ <div class="card-head"><div><span class="kicker">ATMOSPHERE</span><h2>Качество воздуха</h2></div><button class="pill info-btn" data-info="aqi">что означает?</button></div>
+ <button class="air-score" data-info="aqi"><div class="score-ring"><span id="aqi">—</span><small>EU AQI</small></div><div><b id="aqiLabel">Загрузка</b><small>Европейский индекс качества воздуха</small></div></button>
+ <div class="pollutants"><button data-info="pm25"><span>PM2.5</span><strong id="pm25">—</strong><small>µg/m³</small></button><button data-info="pm10"><span>PM10</span><strong id="pm10">—</strong><small>µg/m³</small></button><button data-info="o3"><span>O₃</span><strong id="o3">—</strong><small>µg/m³</small></button></div>
+</article>
+<article class="card moon-card">
+ <div class="card-head"><div><span class="kicker">LUNAR CYCLE</span><h2>Луна</h2></div><button class="pill info-btn" data-info="moon">подробнее</button></div>
+ <div class="moon-main"><div class="moon-visual" id="moonVisual">◐</div><div><div class="moon-name" id="moonName">—</div><strong id="moonIllumination">—</strong><small>освещённость</small></div></div>
+ <div class="detail-line"><span>Восход</span><strong id="moonrise">—</strong></div><div class="detail-line"><span>Заход</span><strong id="moonset">—</strong></div>
+</article>
+<article class="card solar-card">
+ <div class="card-head"><div><span class="kicker">SOLAR ACTIVITY</span><h2>Солнечная активность</h2></div><button class="pill info-btn" data-info="solar">справка</button></div>
+ <div class="solar-grid"><button data-info="xray"><span>X-RAY</span><strong id="xray">—</strong></button><button data-info="solarwind"><span>SOLAR WIND</span><strong id="solarWind">—</strong></button></div>
+ <div class="storm-status" id="stormStatus">Проверка магнитных бурь…</div>
+</article>
+<article class="card quake-card span-2">
+ <div class="card-head"><div><span class="kicker">SEISMIC MONITOR</span><h2>Землетрясения</h2></div><button class="pill info-btn" data-info="quake">500 км · 30 дней</button></div>
+ <div id="quakes" class="quakes"><div class="skeleton"></div><div class="skeleton"></div></div>
+</article>
+</section>
+<footer><span>ATLAS v2.0</span><span>Open-Meteo · NOAA SWPC · USGS</span><span id="footerTime">—</span></footer>
+</main>
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal" role="dialog" aria-modal="true"><button class="modal-close" id="modalClose">×</button><span class="kicker" id="modalKicker">ATLAS</span><h2 id="modalTitle">—</h2><p id="modalText">—</p><div class="modal-value" id="modalValue"></div></div></div>
+<script src="app.js"></script>
+</body>
+</html>
